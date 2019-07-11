@@ -25,6 +25,10 @@ export default new Router({
       path: "/admin",
       name: "admin",
       component: () => import("./views/admin/Products.vue")
+    }, {
+      path: "/admin/product-add",
+      name: "admin-product-add",
+      component: () => import("./views/admin/ProductAdd.vue")
     }
   ]
 });

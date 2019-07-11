@@ -17,7 +17,7 @@
         <tr v-for="product in products" :key="product.id">
           <th scope="row">{{ product.id }}</th>
           <td> {{ product.title }} </td>
-          <td> {{ product.author.firstName }} {{ product.author.name }} </td>
+          <td> {{ product.author.firstName }} {{ product.author.lastName }} </td>
           <td>{{ product.publisher }}</td>
           <td>{{ product.year }}</td>
           <td>{{ product.image }}</td>
@@ -30,19 +30,15 @@
 </template>
 
 <script>
-import productService from '../../services/productService'
 export default {
-    data() {
-        return {
-            products: []
+    computed: {
+        products() {
+            return this.$store.state.products
         }
     },
+    // launch function when component is created
     created() {
-        productService.getProducts().then(res => {
-            const { data } = res
-            this.products = data
-            console.log(this.products)
-        })
+        this.$store.dispatch("getProducts")
     }
 };
 </script>
