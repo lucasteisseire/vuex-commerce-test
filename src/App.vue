@@ -10,14 +10,24 @@
       <span class="spacer">
         <router-link to="/admin">Admin</router-link> 
       </span> 
-      <span class="float-right">Cart (0)</span> 
+      <span class="float-right">
+        <router-link to="/cart">Cart ({{ numberArticlesInCart }})</router-link> 
+      </span> 
     </div>
     <div class="container-fluid">
       <router-view />
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  computed: {
+    numberArticlesInCart() {
+      return this.$store.getters.getNumberArticlesInCart 
+    }
+  },
+}
+</script>
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

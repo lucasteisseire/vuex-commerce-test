@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link to="/admin/product-add">add new book</router-link>
+        <router-link to="/admin/product-add"><h2> + add new book</h2></router-link>
         <ProductList/>
     </div>
 </template>

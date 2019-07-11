@@ -16,11 +16,12 @@ export default new Router({
     {
       path: "/contact",
       name: "contact",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import("./views/Contact.vue")
+    }, {
+      path: "/cart",
+      name: "cart",
+      component: () => import("./views/Cart.vue")
     }, {
       path: "/admin",
       name: "admin",

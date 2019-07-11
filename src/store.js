@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: [],
-    errors: []
+    errors: [],
+    cart: []
   },
   mutations: {
     GET_PRODUCTS(state, products) {
@@ -18,7 +19,13 @@ export default new Vuex.Store({
     },
     GET_PRODUCTS_ERROR(state, error) {
       state.errors = [error, ...state.errors]
-    }
+    },
+    UPDATE_CART(state, cart) {
+      state.cart = cart
+    },
+    // GET_CART(state, products) {
+    //   state.cart = products
+    // }
   },
   actions: {
     getProducts({ commit }) {
@@ -34,11 +41,35 @@ export default new Vuex.Store({
         commit('GET_PRODUCTS_ERROR', error)
       })
     },
+    // getCart({ commit }) {
+    //   productService.getCart().then(res => {
+    //     const { data } = res
+    //     commit('GET_CART', data)
+    //   })
+    // },
     createProduct({ commit }, product) {
       productService.createProduct(product).then(() => {
         commit('CREATE_PRODUCT', product)
       })
       .catch(err => console.error(err.message))
+    },
+    updateCart({ commit }, product) {
+      productService.addToCart(product).then(() => {
+        commit('UPDATE_CART', JSON.parse(localStorage.getItem('vuex-commerce-cart'))
+        )
+      })
+    }
+  },
+  getters: {
+    getCart(state) {
+      return state.cart
+    },
+    getNumberArticlesInCart(state) {
+      if(!state.cart.products) return 0
+        const numberArticles = state.cart.products.reduce((acc, curr) => {
+          return acc + curr.quantity
+        }, 0)
+        return numberArticles
     }
   }
 });

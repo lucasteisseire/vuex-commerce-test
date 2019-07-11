@@ -10,7 +10,7 @@
         <img alt="book image" :src="product.image" class="product-image" />
         <div class="product-price">{{ product.price }} €</div>
       </div>
-      <button>Add to cart</button>
+      <button @click="addToCart(product)">Add to cart</button>
     </div>
   </div>
 </template>
@@ -24,7 +24,14 @@ export default {
     products() {
       return this.$store.state.products;
     }
-  }
+  },
+  methods: {
+      addToCart(product) {
+          this.$store.dispatch("updateCart", product).then(() => {
+              console.log(this.$store.state.cart)
+          })
+      }
+  },
 };
 </script>
 
